@@ -35,7 +35,7 @@ Follow these steps to get the project up and running:
    pnpm start
    ```
 
-   This command will build the project and start the development server. Open your browser and navigate to [http://localhost:5000](http://localhost:5000) to view the application.
+   This command will build the project and start the development server. Open your browser and navigate to [http://localhost:3000](http://localhost:3000) to view the application.
 
 4. **Start the vue2 apart:**
 
