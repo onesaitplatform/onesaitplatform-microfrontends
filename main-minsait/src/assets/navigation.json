@@ -1,0 +1,47 @@
+{
+  "home": {
+    "id": "base",
+    "langs": {
+      "es": "Home",
+      "en": "Home"
+    },
+    "to": "/",
+    "icon": "process"
+  },
+  "vue-3": {
+    "id": "vue3",
+    "langs": {
+      "es": "Vue 3",
+      "en": "Vue 3"
+    },
+    "to": "/vue-3",
+    "icon": "cards"
+  },
+  "vue-2": {
+    "id": "vue2",
+    "langs": {
+      "es": "Vue 2",
+      "en": "Vue 2"
+    },
+    "to": "/Vue-2",
+    "icon": "alarm"
+  },
+  "react": {
+    "id": "react",
+    "langs": {
+      "es": "React",
+      "en": "React"
+    },
+    "to": "/react",
+    "icon": "crew"
+  },
+  "another": {
+    "id": "another",
+    "langs": {
+      "es": "Another",
+      "en": "Another"
+    },
+    "to": "/another",
+    "icon": "map"
+  }
+}

@@ -1,0 +1,223 @@
+@use "sass:math";
+
+$--loading-spinner-size: 42px !default;
+$--loading-fullscreen-spinner-size: 48px !default;
+
+$pi: 3.1415;
+$radius: 20;
+$circumference: 2 * $pi * $radius;
+
+@include b(loading-parent) {
+  height: 100%;
+  @include m(relative) {
+    position: relative !important;
+  }
+
+  @include m(hidden) {
+    overflow: hidden !important;
+  }
+}
+
+@include b(loading-mask) {
+  height: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: calc($--index-10 + 1);
+  background-color: var(--color-bg-primary);
+  margin: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: opacity 0.3s;
+
+  @include when(fullscreen) {
+    position: fixed;
+
+    // .one-loading-spinner {
+    //   margin-top: #{- math.div($--loading-fullscreen-spinner-size, 2)};
+
+    //   .circular {
+    //     height: $--loading-fullscreen-spinner-size;
+    //     width: $--loading-fullscreen-spinner-size;
+    //   }
+    // }
+  }
+}
+
+@include b(loading-spinner) {
+  text-align: center;
+
+  .circular {
+    height: $--loading-spinner-size;
+    width: $--loading-spinner-size;
+    animation: loading-rotate 2s linear infinite;
+
+    .path {
+      animation: loading-dash 1.5s ease-in-out infinite;
+      stroke-dasharray: 90, 150;
+      stroke-dashoffset: 0;
+      stroke-width: 2;
+      stroke: var(--color-txt-interactive);
+      stroke-linecap: round;
+    }
+  }
+
+  /* New Loading */
+  .undeterminated,
+  .determinated {
+    height: $--loading-spinner-size;
+    width: $--loading-spinner-size;
+    transform-origin: center;
+    transform: rotate(-90deg);
+
+    .track {
+      stroke-width: 4;
+      stroke: var(--color-border-interactive);
+      stroke-dashoffset: 0;
+      animation: loading-undeterminated 1.5s linear infinite;
+    }
+
+    .path {
+      stroke-width: 4;
+      stroke: var(--color-border-soft-divisor);
+    }
+  }
+
+  .undeterminated {
+    .track {
+      stroke-dasharray: calc(#{$circumference} * 25 / 100),
+        calc(#{$circumference} * (100 - 25) / 100);
+    }
+  }
+
+  .determinated {
+    .track {
+      stroke-dasharray: $circumference;
+      stroke-dashoffset: $circumference;
+      transition: stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease 0s;
+      animation: none;
+      // animation: loading-determinated 1.5s linear infinite;
+    }
+  }
+
+  .pulse::before {
+    content: "";
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: rem(50);
+    height: rem(50);
+    border-radius: 50%;
+    background-color: var(--color-bg-interactive-soft);
+    z-index: $--index-20;
+    animation: loading-pulse 3s infinite cubic-bezier(0.55, 0, 0.1, 1);
+    opacity: 0.6;
+  }
+
+  i,
+  [class*="one-icon-"],
+  [class*=" one-icon-"] {
+    color: var(--color-txt-interactive);
+  }
+
+  //overwritting element styles
+  .one-icon-loading {
+    margin-bottom: 8px;
+  }
+  .pulse {
+    display: block;
+    height: 52px;
+    &::before {
+      background-color: var(--color-bg-interactive-soft);
+    }
+    &::after {
+      content: "";
+      display: block;
+      margin: 0 auto;
+      width: rem(30);
+      height: rem(30);
+      border-radius: 50%;
+      background-color: var(--color-bg-interactive-soft);
+      z-index: calc(#{$--index-20} + 1);
+      -webkit-animation: loading-pulse 3s infinite reverse
+        cubic-bezier(0.55, 0, 0.1, 1);
+      animation: loading-pulse 3s infinite reverse cubic-bezier(0.55, 0, 0.1, 1);
+      opacity: 0.6;
+      position: relative;
+      top: rem(-40);
+    }
+  }
+  .loading-text-wrapper {
+    margin: $space-150 0 0;
+    color: var(--color-txt-secondary);
+
+    .one-loading-text {
+      @include txt-body-500;
+    }
+    .one-loading-title {
+      @include txt-title-150;
+      margin: 0;
+    }
+    .one-loading-description {
+      @include txt-body-200;
+      margin-top: $space-100;
+    }
+    &.white-text {
+      color: var(--color-txt-button);
+    }
+  }
+}
+
+.one-loading-fade-enter,
+.one-loading-fade-leave-active {
+  opacity: 0;
+}
+
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-pulse {
+  0% {
+    transform: scale(0.4);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.4);
+  }
+}
+
+@keyframes loading-dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -40px;
+  }
+  100% {
+    stroke-dasharray: 90, 150;
+    stroke-dashoffset: -120px;
+  }
+}
+
+/* New Loading */
+@keyframes loading-undeterminated {
+  to {
+    stroke-dashoffset: calc($circumference * -1);
+  }
+}
+
+@keyframes loading-determinated {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
