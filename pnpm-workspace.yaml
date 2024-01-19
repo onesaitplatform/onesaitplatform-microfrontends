@@ -1,0 +1,5 @@
+packages:
+  - "main-minsait"
+  - "modules/vue-3"
+  - "modules/vue2"
+  - "modules/react"

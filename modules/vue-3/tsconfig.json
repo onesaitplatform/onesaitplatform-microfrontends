@@ -1,0 +1,19 @@
+{
+  "files": [],
+  "compilerOptions": {
+    "allowJs": true,
+    "strict": false
+    // otras opciones de configuración...
+  },
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    }
+  ]
+}
