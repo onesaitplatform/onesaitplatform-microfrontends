@@ -1,0 +1,100 @@
+{
+  "name": "@one/webapp-ui",
+  "version": "4.0.1",
+  "description": "A Stencil.js Component System for Onesait.",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.js",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/components.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/one-webapp-ui/one-webapp-ui.esm.js",
+  "files": [
+    "dist/",
+    "CHANGELOG.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.devops.onesait.com/onesait/technology/ux/design-system/one-webapp/one-webapp-ui.git"
+  },
+  "storybook": {
+    "supportedFrameworks": [
+      "web-components",
+      "vue",
+      "react",
+      "angular"
+    ]
+  },
+  "publishConfig": {
+    "registry": "https://nexus.devops.onesait.com/repository/onesait-technology-ux/"
+  },
+  "scripts": {
+    "build": "stencil build --docs && npm run sass && npm run components",
+    "build:new": "stencil build --docs --prod",
+    "build:watch": "stencil build --watch ",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil genzerate",
+    "sass": "sass src/global/global.scss:src/global/global.css",
+    "gen-tokens": "sh ./build-utils/tokens/build-tokens.sh",
+    "gen-icons": "svgtofont --sources src/assets/icons/svg --output src/global/fonts/icons && node build-utils/gen-icons-json.js",
+    "components": "node build-utils/update-index-file.js",
+    "deploy:alpha": "npm run gen-tokens && npm run build && sh ./build-utils/deploy-alpha.sh",
+    "deploy:beta": "npm run gen-tokens && npm run build && sh ./build-utils/deploy-beta.sh",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "gen-utilities-files": "sass --no-source-map src/global/utils/helpers/_spacing.scss:src/global/utils/helpers/_spaces.scss && node ./build-utils/utilities/gen-colors.js && node ./build-utils/utilities/gen-helpers.js && node ./build-utils/utilities/gen-tokens.js"
+  },
+  "dependencies": {
+    "@floating-ui/dom": "^1.0.2",
+    "@stencil/core": "^4.0.0",
+    "@stencil/react-output-target": "^0.5.3",
+    "@stencil/vue-output-target": "^0.8.6",
+    "async-validator": "^4.2.5",
+    "echarts": "^5.4.3",
+    "fecha": "^4.2.3",
+    "node-fetch": "^2.6.7",
+    "resize-observer-polyfill": "^1.5.1",
+    "style-dictionary": "^3.7.0",
+    "throttle-debounce": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.13",
+    "@rollup/plugin-dynamic-import-vars": "^1.4.4",
+    "@stencil/sass": "^1.5.2",
+    "@storybook/addon-a11y": "^6.5.10",
+    "@storybook/addon-actions": "^6.5.10",
+    "@storybook/addon-docs": "^6.5.10",
+    "@storybook/addon-essentials": "^6.5.10",
+    "@storybook/addon-interactions": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/html": "^6.5.10",
+    "@storybook/testing-library": "0.0.13",
+    "@types/jest": "^27.0.3",
+    "@types/throttle-debounce": "^5.0.0",
+    "babel-loader": "^8.2.5",
+    "css-loader": "5.2.7",
+    "generate-source-map": "^0.0.5",
+    "html-webpack-plugin": "^5.5.1",
+    "jest": "^27.4.5",
+    "jest-cli": "^27.4.5",
+    "lodash": "^4.17.21",
+    "puppeteer": "^13.5.1",
+    "rollup-plugin-sass-variables": "^0.1.1",
+    "sass": "1.57.0",
+    "sass-loader": "10.3.1",
+    "sass-resources-loader": "^2.2.5",
+    "style-loader": "2.0.0",
+    "svgtofont": "^3.20.0",
+    "typescript": "^4.8.4",
+    "webpack": "^5.74.0"
+  },
+  "license": "MIT",
+  "outputTargets": [
+    {
+      "type": "www"
+    }
+  ]
+}
